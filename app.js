@@ -4,12 +4,12 @@ const inquirer = require('inquirer')
 const connection = mysql.createConnection({
     host: 'localhost',
     
-    port: 3636,
+    port: 3306,
 
     user: 'root',
 
     password: 'employee',
-    database: 'empolyee_listDB'
+    database: 'employee_listDB'
 });
 
 connection.connect(function(err) {
@@ -17,3 +17,4 @@ connection.connect(function(err) {
     console.log('Connection made!')
 
 }) 
+
