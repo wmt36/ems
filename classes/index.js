@@ -28,10 +28,10 @@ function runSearch () {
         message: 'What action would you like to perform?',
         choices: [
             'Add new department?',
-            'Add new role?',
+            'Add new Employee role?',
             'Add new Employee?',
             'View different departments?',
-            'View all roles?',
+            'View all Employee roles?',
             'View all Employees?',
             'Exit Application?'
         ]
@@ -42,7 +42,7 @@ function runSearch () {
                 addDepartment();                
             break;
 
-            case 'Add new role?':
+            case 'Add new Employee role?':
                 addRole();                
             break;
 
@@ -54,7 +54,7 @@ function runSearch () {
                 viewDepartment();             
             break;
 
-            case 'View all roles?':
+            case 'View all Employee roles?':
                 viewRoles();                
             break;
 
@@ -94,8 +94,15 @@ function addRole() {
     inquirer
     .prompt([{
             name: 'title',
-            type: 'input',
-            message: 'What role would you like to add?'
+            type: 'list',
+            message: 'What role would you like to add?',
+            choices: [
+                'Sales',
+                'Engineering',
+                'Finance',
+                'Legal team',
+                'Manager'
+            ]
         },
         {
             name: 'salary',
@@ -126,11 +133,24 @@ function addEmployee() {
         name: 'last_name',
         type: 'input', 
         message: 'Employee Last Name?'
+    },
+    {
+        name: 'Add role',
+        type: 'list',
+        Message: 'What position do you want to add?',
+        choices: [
+            'Sales',
+            'Engineering',
+            'Finance',
+            'Legal team',
+            'Manager'
+        ]
     }
     ])
     .then(function(answer) {
-        const query = 'INSERT INTO employee (first_name, last_name) VALUE (?, ?)';
-        connection.query(query, [answer.first_name, answer.last_name ], function(err, res) {
+        const query = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE (?, ?, ?)';
+        query += 'SELECT role.role_id FROM role INNER JOIN role_id ON (employee.role_id)'
+        connection.query(query, [ answer.first_name, answer.last_name, answer.role_id], function(err, res) {
             if (err) throw err;
             console.log(res)
             runSearch();
