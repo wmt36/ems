@@ -35,7 +35,7 @@ function runSearch() {
                 'View different departments?',
                 'View all Employee roles?',
                 'View all Employees?',
-                'Update Employee?',
+                // 'Update Employee?',
                 'Exit Application?'
             ]
         })
@@ -65,9 +65,9 @@ function runSearch() {
                     viewEmloyees();
                     break;
 
-                case 'Update Emloyee?':
-                    updateEmloyees();
-                    break;
+                // case 'Update Emloyee?':
+                //     updateEmloyees();
+                //     break;
 
                 case 'Exit Application?':
                     console.log('Press: Ctrl + C')
@@ -264,21 +264,44 @@ function viewEmloyees() {
 };
 
 
-function updateEmloyees() {
-    inquirer
-        .prompt([{
-            name: 'update',
-            type: 'input',
-            message: 'Type in the Employee you wish to update?'
-        }])
-        .then(function (answer) {
-            const query = 'UPDATE employee SET first_name, last_name, role_id, manager_id WHERE ?, ?, ?, ?';
-            connection.query(query, {
-                first_name: answer.update
-            }, function (err, res) {
-                if (err) throw err;
-                console.table(res);
-                runSearch();
-            });
-        });
-};
+// function updateEmloyees() {
+//     inquirer
+//         .prompt([{
+//             name: 'update',
+//             type: 'input',
+//             message: 'Type in the Employee you wish to update?'
+//         },
+//         {
+//             name: 'first_name',
+//             type: 'input',
+//             message: 'Type in the Employee first name to update?'
+//         },
+//         {
+//             name: 'last_name',
+//             type: 'input',
+//             message: 'Type in the Employee last name to update?'
+//         },
+//         {
+//             name: 'role_id',
+//             type: 'input',
+//             message: 'Type in the role id for the Employee you wish to update?'
+//         },
+//        {
+//             name: 'manager_id',
+//             type: 'input',
+//             message: 'Type in the manager id for the Employee you wish to update?'
+//         }
+//     ])
+//         .then(function (answer) {
+//             const query = 'UPDATE employee SET first_name = ?, last_name = ?, role_id = ?, manager_id = ? WHERE id = ?';
+//             connection.query(query, 
+//                 [ answer.update, answer.first_name,
+//                      answer.last_name, answer.role_id,
+//                       answer.manager_id, answer.id],
+//                 function (err, res) {
+//                 if (err) throw err;
+//                 console.table(res);
+//                 runSearch();
+//             });
+//         });
+// };
